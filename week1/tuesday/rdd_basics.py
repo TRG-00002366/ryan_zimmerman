@@ -22,7 +22,6 @@ print(f"Numbers: {range_rdd.collect()}")
 print(f"Partitions: {range_rdd.getNumPartitions()}")
 print("")
 
-
 #task 2
 # Given: numbers RDD [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
