@@ -42,13 +42,20 @@ def main():
         print("")
 
         #T5
-        longest_line = rdd.map(lambda x: (x, len(x))).max(lambda x: x[1])
-        print("Task 5: Longest line")
-        print(longest_line)
+        import re
+
+        full_text = rdd.reduce(lambda a, b: a + ' ' + b)
+
+        pattern = r'[.!?][\s"]+'
+        sentences = sc.parallelize([s.strip() for s in re.split(pattern, full_text) if s.strip() != ''])
+
+        longest_sentence = sentences.max(lambda x: len(x))
+        print("Longest sentence:")
+        print(longest_sentence)
         print("")
 
         #T6
-        only_watson = rdd.filter(lambda x: "Watson" in x)
+        only_watson = sentences.filter(lambda x: "Watson" in x)
         print("Task 6: Only lines with Watson")
         print(only_watson.take(5))
         print("")
@@ -70,7 +77,7 @@ def main():
             word = line.split(' ')[0]
             return ''.join(char for char in word if char.isalnum())
 
-        first_words_per_line = rdd.map(first_word).filter(lambda x: x != '')
+        first_words_per_line = sentences.map(first_word).filter(lambda x: x != '')
         first_line_word_count = first_words_per_line.map(lambda x: (str.lower(x), 1)).reduceByKey(lambda a,b: a+b).sortBy(lambda x: x[1], ascending=False)
 
         print("Task 9: First word of each line count")
@@ -103,7 +110,7 @@ def main():
         
         #O4
         letter_frequency = rdd.flatMap(lambda x: x.split(' ')).flatMap(lambda x: x).map(lambda x: (x,1)).reduceByKey(lambda a,b:a+b)
-        print("Task 04: letter frequency")
+        print("04: letter frequency")
         print(letter_frequency.take(5))
         print("")
         
