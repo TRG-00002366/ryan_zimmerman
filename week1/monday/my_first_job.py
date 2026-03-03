@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-
+from pyspark.sql.functions import col, max
 def main():
     # Step 1: Create SparkSession
     spark = SparkSession.builder \
@@ -40,6 +40,13 @@ def main():
     print("")
     print("Revenue by category:")
     catsum.show()
+
+    #Stretch Goals
+    #1
+    df.withColumn("revenue", col("price") * col("quantity")).agg(
+        max("revenue")
+    ).show()
+
 
     # Step 5: Clean up
     spark.stop()

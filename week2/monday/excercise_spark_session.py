@@ -109,7 +109,7 @@ spark.stop()
 # =============================================================================
 # STRETCH GOALS (Optional)
 # =============================================================================
-
+print("\n=== STRETCH GOALS ===")
 # Stretch 1: Create a helper function that builds a SparkSession with your
 # preferred default configurations
 
@@ -124,14 +124,16 @@ def create_my_spark_session(app_name, shuffle_partitions=100):
     Returns:
         SparkSession object
     """
-    # TODO: Implement this function
-    pass
+    return SparkSession.builder.appName(app_name).master("local[*]").config("spark.sql.shuffle.partitions", shuffle_partitions).getOrCreate()
 
 
 # Stretch 2: Enable Hive support
 # HINT: Use .enableHiveSupport() in the builder chain
 # Note: This may fail if Hive is not configured - that's okay!
-
+def create_hive_spark_session(app_name, shuffle_partitions=100):
+    return SparkSession.builder.appName(app_name).master("local[*]").config("spark.sql.shuffle.partitions", shuffle_partitions) \
+        .enableHiveSupport().getOrCreate()
 
 # Stretch 3: List all configuration options
 # HINT: spark.sparkContext.getConf().getAll() returns all settings
+print(spark.sparkContext.getConf().getAll())

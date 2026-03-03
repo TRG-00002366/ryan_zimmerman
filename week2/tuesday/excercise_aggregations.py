@@ -150,15 +150,25 @@ monthly_category = df.groupBy("month", "category").agg(
 
 print("\n--- Challenge: Business Questions ---")
 
-# TODO 6a: Which category had the highest average transaction value?
+# 6a: Which category had the highest average transaction value?
+highest_avg_cat = df.groupBy("category").avg().agg(
+    max("avg(amount)")
+)
+highest_avg_cat.show()
 
+# 6b: Who is the top salesperson by total revenue?
+monthly_sales = df.groupBy("month", "salesperson").sum().agg(
+    max("sum(amount)")
+)
+monthly_sales.show()
 
-# TODO 6b: Who is the top salesperson by total revenue?
-
-
-# TODO 6c: Which month had the most diverse products sold?
+# 6c: Which month had the most diverse products sold?
 # HINT: Use countDistinct on product column
-
+df.groupBy("month").agg(
+    countDistinct("product").alias("monthly_unique_sales")
+).agg(
+    max("monthly_unique_sales")
+).show()
 
 # =============================================================================
 # CLEANUP
