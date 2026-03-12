@@ -16,6 +16,7 @@ import json
 import time
 import signal
 import sys
+import random
 from datetime import datetime
 from typing import Optional
 
@@ -86,7 +87,7 @@ def create_producer(bootstrap_servers: str = "localhost:9092") -> Optional[Kafka
     """
     Create a production-ready Kafka producer.
     
-    TODO: Configure the producer with:
+    Configure the producer with:
     - key_serializer: encode strings to UTF-8 bytes
     - value_serializer: JSON serialization
     - acks='all': wait for all replicas
@@ -98,10 +99,18 @@ def create_producer(bootstrap_servers: str = "localhost:9092") -> Optional[Kafka
     print("Creating producer with high-durability configuration...")
     
     try:
-        # TODO: Create and return the KafkaProducer
+        # Create and return the KafkaProducer
         # Complete the configuration based on the requirements above
         
-        producer = None  # Replace with your code
+        producer = KafkaProducer(
+            bootstrap_servers = bootstrap_servers,
+            key_serializer=lambda k: k.encode('utf-8') if k else None,
+            value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+            acks='all',
+            retries = 5,
+            retry_backoff_ms=100,
+            linger_ms=10
+        )
         
         if producer:
             print("  [OK] Producer created successfully")
@@ -125,7 +134,7 @@ def generate_payment_event(payment_id: int) -> dict:
     """
     Generate a payment event.
     
-    TODO: Create a payment dictionary with:
+    Create a payment dictionary with:
     - payment_id: formatted as "PAY-XXXX"
     - customer_id: formatted as "CUST-XXX"
     - amount: random amount between 10.00 and 1000.00
@@ -136,9 +145,15 @@ def generate_payment_event(payment_id: int) -> dict:
     """
     merchants = ["Amazon", "Walmart", "Target", "BestBuy", "Costco"]
     
-    # TODO: Create and return the payment event
+    # Create and return the payment event
     payment = {
-        # Your code here
+        "payment_id":f"PAY-{str(payment_id).rjust(4, "0")}",
+        "customer_id":f"CUST-{str(random.randint(1, 999)).rjust(3, "0")}",
+        "amount":round(random.randint(1000, 100000)/10.0 ,2),
+        "currency":random.choice(["USD", "EUR"]),
+        "status":"pending",
+        "timestamp":time.time(),
+        "merchant":random.choice(merchants)
     }
     
     return payment
@@ -158,12 +173,24 @@ def generate_test_payments(count: int = 20) -> list:
     for i in range(1, count + 1):
         payment = generate_payment_event(i)
         
-        # TODO: Add some invalid payments for testing error handling
+        # Add some invalid payments for testing error handling
         # For example, payment #5 could have a negative amount
         # Payment #15 could have missing customer_id
         
         payments.append(payment)
     
+    invalid1 = generate_payment_event(count + 1)
+    invalid2 = generate_payment_event(count + 1)
+    invalid3 = generate_payment_event(count + 1)
+
+    invalid1["amount"] = -2.5
+    invalid2["customer_id"] = ""
+    invalid3["currency"] = ""
+
+    payments.append(invalid1)
+    payments.append(invalid2)
+    payments.append(invalid3)
+ 
     return payments
 
 
@@ -176,15 +203,15 @@ def on_send_success(record_metadata):
     """
     Callback for successful sends.
     
-    TODO: Implement this callback to:
+    Implement this callback to:
     1. Calculate latency (use a stored timestamp)
     2. Log the success with partition and offset
     3. Update metrics
     """
-    # TODO: Implement success callback
+    # Implement success callback
     # Hint: record_metadata has .topic, .partition, .offset, .timestamp
     
-    pass  # Replace with your code
+    
 
 
 def on_send_error(exception):
