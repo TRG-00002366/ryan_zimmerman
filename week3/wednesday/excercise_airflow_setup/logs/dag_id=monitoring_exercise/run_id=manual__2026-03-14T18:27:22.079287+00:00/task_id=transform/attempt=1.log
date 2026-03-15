@@ -1,0 +1,48 @@
+[2026-03-14T18:27:26.781+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: monitoring_exercise.transform manual__2026-03-14T18:27:22.079287+00:00 [queued]>
+[2026-03-14T18:27:26.789+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: monitoring_exercise.transform manual__2026-03-14T18:27:22.079287+00:00 [queued]>
+[2026-03-14T18:27:26.790+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2026-03-14T18:27:26.802+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform> on 2026-03-14 18:27:22.079287+00:00
+[2026-03-14T18:27:26.807+0000] {standard_task_runner.py:57} INFO - Started process 21657 to run task
+[2026-03-14T18:27:26.809+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'monitoring_exercise', 'transform', 'manual__2026-03-14T18:27:22.079287+00:00', '--job-id', '23', '--raw', '--subdir', 'DAGS_FOLDER/monitoring_excercise_dag.py', '--cfg-path', '/tmp/tmp_yhhm4b5']
+[2026-03-14T18:27:26.811+0000] {standard_task_runner.py:85} INFO - Job 23: Subtask transform
+[2026-03-14T18:27:26.850+0000] {task_command.py:416} INFO - Running <TaskInstance: monitoring_exercise.transform manual__2026-03-14T18:27:22.079287+00:00 [running]> on host c194c1ff274d
+[2026-03-14T18:27:26.908+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='training' AIRFLOW_CTX_DAG_ID='monitoring_exercise' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2026-03-14T18:27:22.079287+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-14T18:27:22.079287+00:00'
+[2026-03-14T18:27:26.909+0000] {logging_mixin.py:154} INFO - Transforming data...
+[2026-03-14T18:27:26.917+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/monitoring_excercise_dag.py", line 117, in transform_data
+    total += record["amount"]
+KeyError: 'amount'
+[2026-03-14T18:27:26.924+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=monitoring_exercise, task_id=transform, execution_date=20260314T182722, start_date=20260314T182726, end_date=20260314T182726
+[2026-03-14T18:27:26.924+0000] {logging_mixin.py:154} INFO - Task transform failed.
+[2026-03-14T18:27:26.924+0000] {taskinstance.py:1705} ERROR - Error when executing on_failure_callback callback
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 1518, in _run_raw_task
+    self._execute_task_with_callbacks(context, test_mode, session=session)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 1681, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 1744, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/monitoring_excercise_dag.py", line 117, in transform_data
+    total += record["amount"]
+KeyError: 'amount'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 1702, in _run_finished_callback
+    callback(context)
+  File "/opt/airflow/dags/monitoring_excercise_dag.py", line 70, in on_failure_callback
+    print(f"Exception: {context.get('task_instance').exception}")
+AttributeError: 'TaskInstance' object has no attribute 'exception'
+[2026-03-14T18:27:26.933+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 23 for task transform ('amount'; 21657)
+[2026-03-14T18:27:26.943+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2026-03-14T18:27:26.960+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

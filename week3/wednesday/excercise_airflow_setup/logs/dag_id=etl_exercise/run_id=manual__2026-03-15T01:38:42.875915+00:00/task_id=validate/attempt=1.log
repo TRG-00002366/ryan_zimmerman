@@ -1,0 +1,15 @@
+[2026-03-15T01:38:45.541+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_exercise.validate manual__2026-03-15T01:38:42.875915+00:00 [queued]>
+[2026-03-15T01:38:45.548+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_exercise.validate manual__2026-03-15T01:38:42.875915+00:00 [queued]>
+[2026-03-15T01:38:45.549+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2026-03-15T01:38:45.558+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): validate> on 2026-03-15 01:38:42.875915+00:00
+[2026-03-15T01:38:45.562+0000] {standard_task_runner.py:57} INFO - Started process 38013 to run task
+[2026-03-15T01:38:45.564+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'etl_exercise', 'validate', 'manual__2026-03-15T01:38:42.875915+00:00', '--job-id', '61', '--raw', '--subdir', 'DAGS_FOLDER/etl_pipeline_dag.py', '--cfg-path', '/tmp/tmp5jkh19_n']
+[2026-03-15T01:38:45.567+0000] {standard_task_runner.py:85} INFO - Job 61: Subtask validate
+[2026-03-15T01:38:45.601+0000] {task_command.py:416} INFO - Running <TaskInstance: etl_exercise.validate manual__2026-03-15T01:38:42.875915+00:00 [running]> on host c194c1ff274d
+[2026-03-15T01:38:45.656+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_team' AIRFLOW_CTX_DAG_ID='etl_exercise' AIRFLOW_CTX_TASK_ID='validate' AIRFLOW_CTX_EXECUTION_DATE='2026-03-15T01:38:42.875915+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-15T01:38:42.875915+00:00'
+[2026-03-15T01:38:45.657+0000] {logging_mixin.py:154} INFO - Validating data...
+[2026-03-15T01:38:45.664+0000] {logging_mixin.py:154} INFO - Validated 7 records
+[2026-03-15T01:38:45.665+0000] {python.py:194} INFO - Done. Returned value was: {'status': 'validated'}
+[2026-03-15T01:38:45.679+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=etl_exercise, task_id=validate, execution_date=20260315T013842, start_date=20260315T013845, end_date=20260315T013845
+[2026-03-15T01:38:45.696+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2026-03-15T01:38:45.715+0000] {taskinstance.py:2778} INFO - 1 downstream tasks scheduled from follow-on schedule check

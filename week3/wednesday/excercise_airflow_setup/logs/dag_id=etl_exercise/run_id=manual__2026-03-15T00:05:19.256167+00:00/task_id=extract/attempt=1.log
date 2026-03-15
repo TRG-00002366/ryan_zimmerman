@@ -1,0 +1,29 @@
+[2026-03-15T00:17:04.724+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_exercise.extract manual__2026-03-15T00:05:19.256167+00:00 [queued]>
+[2026-03-15T00:17:04.734+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_exercise.extract manual__2026-03-15T00:05:19.256167+00:00 [queued]>
+[2026-03-15T00:17:04.735+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2026-03-15T00:17:04.744+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): extract> on 2026-03-15 00:05:19.256167+00:00
+[2026-03-15T00:17:04.748+0000] {standard_task_runner.py:57} INFO - Started process 34791 to run task
+[2026-03-15T00:17:04.752+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'etl_exercise', 'extract', 'manual__2026-03-15T00:05:19.256167+00:00', '--job-id', '30', '--raw', '--subdir', 'DAGS_FOLDER/etl_pipeline_dag.py', '--cfg-path', '/tmp/tmpmawc_v5k']
+[2026-03-15T00:17:04.754+0000] {standard_task_runner.py:85} INFO - Job 30: Subtask extract
+[2026-03-15T00:17:04.796+0000] {task_command.py:416} INFO - Running <TaskInstance: etl_exercise.extract manual__2026-03-15T00:05:19.256167+00:00 [running]> on host c194c1ff274d
+[2026-03-15T00:17:04.850+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_team' AIRFLOW_CTX_DAG_ID='etl_exercise' AIRFLOW_CTX_TASK_ID='extract' AIRFLOW_CTX_EXECUTION_DATE='2026-03-15T00:05:19.256167+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-15T00:05:19.256167+00:00'
+[2026-03-15T00:17:04.851+0000] {logging_mixin.py:154} INFO - Extracting from /opt/airflow/data/input/orders.csv...
+[2026-03-15T00:17:04.852+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_pipeline_dag.py", line 79, in extract_data
+    with open(INPUT_PATH, mode='r', newline='', encoding='utf-8') as csv_file:
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/data/input/orders.csv'
+[2026-03-15T00:17:04.858+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=etl_exercise, task_id=extract, execution_date=20260315T000519, start_date=20260315T001704, end_date=20260315T001704
+[2026-03-15T00:17:04.858+0000] {logging_mixin.py:154} INFO - ==================================================
+[2026-03-15T00:17:04.858+0000] {logging_mixin.py:154} INFO - PIPELINE FAILURE!
+[2026-03-15T00:17:04.858+0000] {logging_mixin.py:154} INFO - Dag ID: etl_exercise
+[2026-03-15T00:17:04.858+0000] {logging_mixin.py:154} INFO - Task ID: extract
+[2026-03-15T00:17:04.858+0000] {logging_mixin.py:154} INFO - Exception: [Errno 2] No such file or directory: '/opt/airflow/data/input/orders.csv'
+[2026-03-15T00:17:04.858+0000] {logging_mixin.py:154} INFO - ==================================================
+[2026-03-15T00:17:04.868+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 30 for task extract ([Errno 2] No such file or directory: '/opt/airflow/data/input/orders.csv'; 34791)
+[2026-03-15T00:17:04.885+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2026-03-15T00:17:04.902+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

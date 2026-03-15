@@ -1,0 +1,15 @@
+[2026-03-13T14:57:01.866+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dependency_exercise.extract_apac manual__2026-03-13T14:56:59.956063+00:00 [queued]>
+[2026-03-13T14:57:01.877+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dependency_exercise.extract_apac manual__2026-03-13T14:56:59.956063+00:00 [queued]>
+[2026-03-13T14:57:01.878+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2026-03-13T14:57:01.895+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): extract_apac> on 2026-03-13 14:56:59.956063+00:00
+[2026-03-13T14:57:01.899+0000] {standard_task_runner.py:57} INFO - Started process 541 to run task
+[2026-03-13T14:57:01.906+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'dependency_exercise', 'extract_apac', 'manual__2026-03-13T14:56:59.956063+00:00', '--job-id', '8', '--raw', '--subdir', 'DAGS_FOLDER/dependency_excercise_dag.py', '--cfg-path', '/tmp/tmpxx65_1y_']
+[2026-03-13T14:57:01.909+0000] {standard_task_runner.py:85} INFO - Job 8: Subtask extract_apac
+[2026-03-13T14:57:01.960+0000] {task_command.py:416} INFO - Running <TaskInstance: dependency_exercise.extract_apac manual__2026-03-13T14:56:59.956063+00:00 [running]> on host c194c1ff274d
+[2026-03-13T14:57:02.033+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='dependency_exercise' AIRFLOW_CTX_TASK_ID='extract_apac' AIRFLOW_CTX_EXECUTION_DATE='2026-03-13T14:56:59.956063+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-13T14:56:59.956063+00:00'
+[2026-03-13T14:57:02.034+0000] {logging_mixin.py:154} INFO - Extracting data from APAC...
+[2026-03-13T14:57:03.481+0000] {logging_mixin.py:154} INFO - Extracted 1390 records from APAC
+[2026-03-13T14:57:03.482+0000] {python.py:194} INFO - Done. Returned value was: {'region': 'APAC', 'records': 1390}
+[2026-03-13T14:57:03.502+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=dependency_exercise, task_id=extract_apac, execution_date=20260313T145659, start_date=20260313T145701, end_date=20260313T145703
+[2026-03-13T14:57:03.552+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2026-03-13T14:57:03.569+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
