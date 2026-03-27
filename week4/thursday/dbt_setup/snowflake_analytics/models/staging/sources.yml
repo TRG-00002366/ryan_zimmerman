@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw data landing zone from streaming pipeline"
+    database: RYAN_DEV_DB
+    schema: BRONZE
+    tables:
+      - name: raw_events
+        description: "Raw event data from Kafka ingestion"
+        columns:
+          - name: event_id
+            description: "Unique identifier for each event"
+          - name: event_type
+            description: "Type of event (CLICK, VIEW, PURCHASE, etc.)"
+          - name: payload
+            description: "JSON payload containing event details"
+          - name: created_at
+            description: "Timestamp when event was created"
+
+      - name: raw_transactions
+        description: "Raw transaction data from ingestion pipeline"
+        columns:
+          - name: transaction_id
+            description: "Unique identifier for each transaction"
+          - name: customer_id
+            description: "Customer identifier"
+          - name: amount
+            description: "Transaction amount"
+          - name: transaction_date
+            description: "Date of transaction"
+          - name: product_category
+            description: "Category of product purchased"

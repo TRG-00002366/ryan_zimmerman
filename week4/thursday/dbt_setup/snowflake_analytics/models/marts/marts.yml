@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: fct_customer_metrics
+    description: "Customer-level metrics and segmentation"
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier"
+        tests:
+          - unique
+          - not_null
+      - name: lifetime_value
+        tests:
+          - not_null
+      - name: customer_segment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['High Value', 'Medium Value', 'Low Value']
