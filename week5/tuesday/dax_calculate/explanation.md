@@ -1,0 +1,2 @@
+Row context handles row by row calculations while filter context handles the subset of rows being considered for calculation.
+CALCULATE lets you modify the filter context while doing a calculation based on row context.
